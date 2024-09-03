@@ -108,5 +108,41 @@ a Tree with n vertices has at most n-1 edges. we can prove this with simple indc
     Leaf: vertex of degree 1 in a tree
 
 \end{definition}
-Argue that what remains is still a tree. 
+Argue that what remains is still a tree. By induction the graphj that remains (n-1) -1 edges and when you add back a vertex you are adding exactly one edge 
+\\ 
+Our next theorem essentially gives us a baunch of different definition of a tree.
+\begin{theorem}[Tree characterization theorem]
+    Let $G$ be an n-vertex graph. The following are equivalent (TFAE): 
+    \begin{enumerate}
+        \item $G$ is connected and acyclic 
+        \item $G$ is connected and has n-1 edges
+        \item $G$ is acyclic and has n-1 edges
+        \item for every pair $u, v \in V(G)$, there is a unique (and one) path between $u$ and $v$
+    \end{enumerate}
+    How do we prove TFAE for any type of theorems? if we prove $A \implies B \implies C \implies D \implies A$ then we have proven TFAE
+    \begin{proof}
+        Create a cycle of implications. 
+        \begin{enumerate}
+            \item $A \implies B$: If $G$ is connected and acyclic, then it has n-1 edges as shown above since $V(G) = n$ we have that $E(G) = n-1$
+            \item $B \implies C$: If $G$ is connected and has n-1 edges, then it is acyclic. IF G is not acyclic, delete an edge fro ma cycle iteratively until the resulting graph is acyclic. By an earlier result, we show that we didn't delete any cut edges and therefore G' is connected. Thus G' is connected and has n-1 edges.
+            \item $C \implies D$: If $G$ is acyclic and has n-1 edges, then for every pair $u, v \in V(G)$, there is a unique path between $u$ and $v$. We can prove this by induction on the number of vertices. \\ $e(G) = \sum_{i \in [t]}^{n-1} e(G_i) = \sum_{i \in [t]}^{n-1} (v(G_i) - 1) = n-1$.. $\mathbb{S} $ (for a congradiction) that for some pair $u, v \in v(G), $ G Contains two distinct $(u, v) - paths$ say $Q_1 = uv_1 v_2 \dots v_r v$ and $Q_2 = uv_1 \dots v_s v$ Let $G'$ be the graph with vertex set $V(G' )= V(Q_1) \Cup V(Q_2)$ and edge-set $E(G') = E(Q_1) \cup E(Q_2)$  
+            since $G' \subset G$ G' is acyclic G' is also connected (why? ) We will show that G' contains a cycle (which will be a contradiction) To see this Let i be the smallest index in $\{0, \dots, r\}$ such that $v_i \in V(Q_2)$ and let j be the smallest index in $\{0, \dots, s\}$ such that $v_j \in V(Q_1)$ then $v_i = v_j$ and $v_1, \dots, v_i, v_{i+1}, \dots, v_j, v_{j+1}, \dots, v_r, v$ is a cycle in G'
+            \item finally show $D \implies A$ By definition if G satisfies D, then G is connceted, If G has a cycle $v_1v_2\dots v_iv_1$ Then $v_1 \dots v_i$ and $v_i v_1$ are two distinct paths between $v_1$ and $v_i$ which is a contradiction.
+        \end{enumerate}
+        
+    \end{proof}
+    
+\end{theorem}
+\begin{definition}[spanning subsgraph ]
+    a spanning tree of a graph $G$ is a subgraph of $G$ that contains all the vertices of $G$
+    A spanning subgraph of a graph $G$ is a subgraph of $G$ that contains all the vertices of $G$
+\end{definition}
+
+Corollary: 
+    \begin{enumerate}
+        \item every edge of a tree is a cut edge.
+        \item Adding an edge to a tree creates exacly one cycle. 
+        \item Every connected graph has a spanning tree 
+    \end{enumerate}
+
 \end{document}
