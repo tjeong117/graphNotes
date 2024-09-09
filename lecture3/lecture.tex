@@ -1,0 +1,161 @@
+\documentclass[12 pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{afterpage}
+\usepackage{dirtytalk}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+
+
+\newcommand{\N}{\mathbb{N}}
+
+\addtolength{\oddsidemargin}{-.875in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.75in}
+
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+
+\title{Math 4022 Assignment 1}
+\date{Due: Friday, 6 Sept, at 23:59 on GradeScope}
+
+\begin{document}
+
+\maketitle
+
+\textcolor{blue}{Fully justify all your answers in complete sentences. Feel free to use any result proved or presented in class, but be sure to cite it appropriately. Questions 1-3 will be graded out of 4 each (for descriptions of what each point value corresponds to, see the syllabus). Each part of Question 4 will be graded out of 2.}
+
+\vskip 4mm
+
+\paragraph{(Question 1)} Let $G$ be a connected graph, and suppose $P$ and $Q$ are both maximum-length paths in $G$. Prove that $V(P) \cap V(Q) \neq \emptyset$. \textcolor{blue}{(Note: your solution should not include any pictures, though you are encouraged to draw pictures in your notebook to build your intuition.)}
+Let $G$ be a connected graph, and let $P$ and $Q$ be maximum-length paths in $G$. We will prove that $V(P) \cap V(Q) \neq \emptyset$.
+\begin{proof}
+    Assume, for contradiction, that \( V(P) \cap V(Q) = \emptyset \). Since \( G \) is connected, there exists a path \( R \) connecting a vertex \( p \in P \) to a vertex \( q \in Q \) with length \( r \).
+
+    Let \( a \) and \( b \) be the lengths of the subpaths of \( P \) from its start to \( p \) and from \( p \) to the end of \( P \), respectively. Thus, \( |P| = a + b \). Similarly, let \( c \) and \( d \) be the lengths of the subpaths of \( Q \) from its start to \( q \) and from \( q \) to the end of \( Q \), respectively. Thus, \( |Q| = c + d \).
+    
+    Consider the following paths:
+    - \( A \): from the start of \( P \) to \( p \), then \( R \), then to the end of \( Q \), with length \( a + r + d \).
+    - \( B \): from the end of \( P \) to \( p \), then \( R \), then to the start of \( Q \), with length \( b + r + c \).
+    - \( C \): from the start of \( P \) to \( p \), then \( R \), then to the start of \( Q \), with length \( a + r + c \).
+    
+    The sum of the lengths of \( A \), \( B \), and \( C \) is:
+    \[
+    (a + r + d) + (b + r + c) + (a + r + c) = 2a + b + 2c + d + 3r
+    \]
+    The sum of the lengths of \( P \) and \( Q \) is:
+    \[
+    (a + b) + (c + d) = a + b + c + d
+    \]
+    The difference between these sums is:
+    \[
+    2a + b + 2c + d + 3r - (a + b + c + d) = a + c + 3r
+    \]
+    Since \( a + c + 3r > 0 \), the average length of \( A \), \( B \), and \( C \) is:
+    \[
+    \frac{2a + b + 2c + d + 3r}{3}
+    \]
+    which is greater than the average length of \( P \) and \( Q \):
+    \[
+    \frac{a + b + c + d}{2}
+    \]
+    Thus, at least one of \( A \), \( B \), or \( C \) must be longer than both \( P \) and \( Q \), contradicting the assumption that \( P \) and \( Q \) are maximum-length paths. Hence, \( V(P) \cap V(Q) \neq \emptyset \).
+        
+
+
+\end{proof}
+
+
+
+\paragraph{(Question 2)} Let $k \in \mathbb{N}$ with $k\geq 2$, and let $G$ be the graph with vertex set $V(G) = \{0,1\}^k$ (that is, $V(G)$ is the set of $k$-tuples with elements in $\{0,1\}$) where for each pair $u,v \in V(G)$, $uv \in E(G)$ if and only if $u$ and $v$ differ in exactly two positions. How many components does $G$ have? Prove your answer is correct. \textcolor{blue}{(Note: it might be helpful to draw out some small examples (for $k =  2, 3, 4...$) and try to spot a pattern. As usual, you should not include these drawings in your solution.)}
+\begin{proof}
+   
+To determine the number of components in \( G \), consider the following:
+
+The vertex set \( V(G) \) is \(\{0,1\}^k\), the set of all \( k \)-tuples of 0s and 1s. Two vertices \( u \) and \( v \) are adjacent if and only if they differ in exactly two positions.
+
+To analyze connectivity, consider paths that involve changing exactly two positions. Any path between two vertices \( u \) and \( v \) in \( G \) can be constructed by changing exactly two differing positions incrementally.
+
+Select a specific vertex \( v_0 \in V(G) \), for instance, \( v_0 = (0,0,\ldots,0) \). Consider vertices that differ from \( v_0 \) in exactly \( i \) positions, where \( i \) ranges from 0 to \( k \). These vertices form a connected subgraph. Each subgraph of vertices differing from \( v_0 \) in exactly \( i \) positions is connected because any two such vertices can be connected through a series of edges involving changes in exactly two positions.
+
+Since there are \( k+1 \) possible numbers of differing positions (from 0 to \( k \)), there are \( k+1 \) distinct connected subgraphs. Thus, the number of connected components in \( G \) is $k + 1$.
+
+\end{proof}
+
+
+\paragraph{(Question 3)} Show the following two statements are equivalent.
+\begin{enumerate}
+    \item For every pair of vertices $u,v$ in a graph $G$, there exists a $(u,v)$-walk.
+    \item For every partition of $V(G)$ into two sets $A$ and $B$, there exists an edge from $A$ to $B$.  \textcolor{blue}{(Recall: given a set $X$, a partition $X_1, X_2, \dots, X_n$ is a collection of nonempty subsets of $X$ such that for all $i,j \in \{1, 2, \dots, n\}$, $X_i \cap X_j \neq \emptyset \rightarrow i = j$ and $X_1 \cup ...\cup X_n = X$ (that is: the sets $X_1, \dots, X_n$ are pairwise disjoint, and their union is equal to $X$).) }
+\end{enumerate}
+\begin{proof}
+    \textbf{$\rightarrow$}
+
+Assume Statement 1 is true, i.e., for every pair of vertices \( u, v \) in \( G \), there exists a \((u,v)\)-walk.
+
+Consider any partition of \( V(G) \) into two disjoint sets \( A \) and \( B \), such that \( A \cup B = V(G) \) and \( A \cap B = \emptyset \). We need to show that there is an edge from \( A \) to \( B \), meaning there exists at least one edge connecting a vertex in \( A \) to a vertex in \( B \).
+
+Suppose, for contradiction, that no edge connects \( A \) to \( B \). This would imply that all edges are either entirely within \( A \) or entirely within \( B \). 
+
+Since \( G \) is connected (as assumed in Statement 1), for any \( u \in A \) and \( v \in B \), there exists a \((u,v)\)-walk in \( G \). 
+
+However, if there are no edges between \( A \) and \( B \), then any \((u,v)\)-walk from \( u \in A \) to \( v \in B \) would have to pass entirely through \( A \) or \( B \). This contradicts the assumption that \( G \) is connected, because it implies that \( A \) and \( B \) are not connected by any edges.
+
+Thus, there must be at least one edge from \( A \) to \( B \). \\ \\ 
+
+\textbf{$\leftarrow$}
+
+Assume Statement 2 is true, i.e., for every partition of \( V(G) \) into two sets \( A \) and \( B \), there exists an edge from \( A \) to \( B \).
+
+We need to show that for every pair of vertices \( u, v \) in \( G \), there exists a \((u,v)\)-walk.
+
+Consider any pair of vertices \( u, v \) in \( G \). We will show that there is a walk from \( u \) to \( v \). 
+
+If \( u \) and \( v \) are in the same set of a partition, then we can partition \( V(G) \) into two sets \( A = \{ u \} \cup (V(G) \setminus \{ u \}) \) and \( B = \{ v \} \cup (V(G) \setminus \{ v \}) \). By Statement 2, there exists an edge from \( A \) to \( B \), and since \( u \) and \( v \) are in different sets, there must be an edge from \( u \) to \( v \), implying a direct walk.
+
+If \( u \) and \( v \) are in different sets, then Statement 2 guarantees an edge connecting \( u \) and \( v \) directly or indirectly through vertices in the sets. Since \( G \) is connected by assumption, there exists a path or walk between any pair of vertices in \( G \).
+
+Therefore, Statement 2 implies that every pair of vertices \( u \) and \( v \) is connected by a walk, thus proving Statement 1.
+
+\end{proof}
+
+
+\paragraph{(Question 4)} \textcolor{blue}{Recall that, given a graph $G$, $\delta(G) : = \min_{v \in V(G)} \deg(v)$. Recall also that the girth of a graph is the length of a shortest cycle in the graph (where if the graph has no cycles, we define the girth to be infinite).} In what follows, let $G$ be a graph.
+\paragraph{(a)} \textbf{Show that \( G \) contains a path of length at least \( \delta(G) \).}
+
+\textbf{Proof:}
+
+Let \( \delta(G) = d \). Consider a vertex \( v \in V(G) \) with \( \deg(v) = d \). 
+
+Starting from \( v \), follow \( d \) edges to \( d \) distinct neighbors. This constructs a path of length \( d \), as each neighbor can be connected directly.
+
+Hence, \( G \) contains a path of length at least \( d \), i.e., \( \delta(G) \).
+
+\paragraph{(b)} \textbf{Show that if \( \delta(G) \geq 2 \), then \( G \) contains a cycle of length at least \( \delta(G) + 1 \).}
+
+\textbf{Proof:}
+
+Let \( \delta(G) = d \geq 2 \). Consider a vertex \( v \) with \( \deg(v) \geq d \).
+
+In the subgraph induced by the neighbors of \( v \), each vertex has degree \( \geq d - 1 \). A \( (d - 1) \)-regular graph with \( d \geq 2 \) contains a cycle of length \( \geq d + 1 \).
+
+Thus, \( G \) contains a cycle of length at least \( d + 1 \), i.e., \( \delta(G) + 1 \).
+
+\paragraph{(c)} \textbf{Show that if \( \delta(G) \geq k \geq 2 \) and \( g(G) \geq 4 \), then \( G \) contains a cycle of length at least \( 2k \).}
+
+\textbf{Proof:}
+
+Let \( \delta(G) = k \geq 2 \) and \( g(G) \geq 4 \). 
+
+Consider a vertex \( v \) with \( \deg(v) \geq k \). Each neighbor of \( v \) has \( \geq k - 1 \) neighbors. The subgraph induced by \( N(v) \) is \( (k - 1) \)-regular.
+
+For \( g(G) \geq 4 \), no edge connects two neighbors of \( v \). Thus, the subgraph induced by \( N(v) \) has a cycle of length \( \geq 2k \).
+
+Therefore, \( G \) contains a cycle of length at least \( 2k \).
+\end{document}
